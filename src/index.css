@@ -7,6 +7,11 @@
   color:#fafafa
 }
 
+button{
+  color:black;
+  cursor:pointer;
+}
+
 h1{
   font-size: 32px;
 }
