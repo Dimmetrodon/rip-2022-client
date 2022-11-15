@@ -10,7 +10,9 @@ const initialState = {
 const apartmentSlice = createSlice({
     name:'apartment',
     initialState,
-    reducers:{},
+    reducers:{reset:(state) => {
+            state.apartment = {}
+        }},
     extraReducers: (builder) => {
         builder.addCase(fetchGetAllApartmentsAction.pending, (state)=>{
             console.log('fetchGetAllApartmentsAction.pending')
@@ -32,4 +34,5 @@ const apartmentSlice = createSlice({
         })
     }})
 
+export const {reset} = apartmentSlice.actions
 export const apartmentReducer = apartmentSlice.reducer
