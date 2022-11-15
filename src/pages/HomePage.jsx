@@ -1,19 +1,21 @@
 import {Link} from "react-router-dom";
-import {apartments} from "../apartments";
-import {useEffect, useState} from "react";
-import {Apartment} from "../components/Apartment";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {fetchGetAllApartmentsAction} from "../store/actions/apartmentAction";
 
 export const HomePage = () =>{
-    const [display, setDisplay] = useState(false)
-    const [apartment, setApartment] = useState(apartments[0])
-    useEffect(()=>{setApartment(apartments[Math.floor(Math.random()*apartments.length)])},[display])
+    const dispatch = useDispatch()
+    const {apartments} = useSelector(store=>store.apartment)
+
+    useEffect(()=>{
+        dispatch(fetchGetAllApartmentsAction())
+    }, [dispatch])
     return <div>
         <Link to="/">Главная</Link>
         <div>
-            <button onClick={()=>setDisplay((prev)=>!prev)}>{display? "Скрыть" : "Показать"}</button>
-            {display && <div style={{display: "flex", flexDirection: "column"}}>
-                {apartments.map(apartment => <Link to={`/apartment/${apartment.id}`} key={apartment.id}>{apartment.id}. {apartment.name}</Link>)}
-            </div>}
+            <div style={{display: "flex", flexDirection: "column"}}>
+                {apartments.map(apartment => <Link to={`/apartment/${apartment.pk}`} key={apartment.pk}>{apartment.name}</Link>)}
+            </div>
         </div>
     </div>
 }
